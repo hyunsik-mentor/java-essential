@@ -1,6 +1,4 @@
-package example2;
-
-import example1.Book;
+package example3;
 
 import java.util.Collections;
 import java.util.Date;
@@ -28,10 +26,6 @@ public class EBook extends Book {
 
         Book book = ebook;
         System.out.println("As Book: " + book.getKind());
-
-        Book harryPotter = new Book("Harry Potter", List.of("J. K. Rowling"), "9788983925558",
-                new GregorianCalendar(2001, 10, 14).getTime());
-        EBook ebook2 = (EBook) harryPotter;
     }
 }
 
