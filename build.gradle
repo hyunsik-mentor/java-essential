@@ -1,6 +1,10 @@
-plugins {
-    id 'java'
+buildscript {
+    repositories {
+        mavenCentral()
+    }
 }
+
+apply plugin: 'java'
 
 group 'org.example'
 version '1.0-SNAPSHOT'
@@ -10,5 +14,31 @@ repositories {
 }
 
 dependencies {
-    testCompile group: 'junit', name: 'junit', version: '4.12'
+    testCompile("org.junit.jupiter:junit-jupiter-api:5.7.0")
+    testRuntime("org.junit.jupiter:junit-jupiter-engine:5.7.0")
+    testCompile("com.google.http-client:google-http-client:1.37.0")
+}
+
+test {
+    useJUnitPlatform()
+    // Always run tests, even when nothing changed.
+    dependsOn 'cleanTest'
+
+    // Show test results.
+    testLogging {
+        events "passed", "skipped", "failed"
+    }
+}
+
+sourceCompatibility = 11
+targetCompatibility = 11
+
+jar {
+    manifest {
+        attributes "Main-Class": "arguments.Main"
+    }
+
+    from {
+        configurations.compile.collect { it.isDirectory() ? it : zipTree(it) }
+    }
 }
